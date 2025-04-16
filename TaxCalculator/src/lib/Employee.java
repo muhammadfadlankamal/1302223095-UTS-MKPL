@@ -29,8 +29,7 @@ public class Employee {
 	private String spouseName;
 	private String spouseIdNumber;
 
-	private List<String> childNames;
-	private List<String> childIdNumbers;
+	private List<Child> children;
 
 	public Employee(String employeeId, String firstName, String lastName, String idNumber, String address,
 			int yearJoined, int monthJoined, int dayJoined, boolean isForeigner, Gender gender) {
@@ -45,8 +44,7 @@ public class Employee {
 		this.isForeigner = isForeigner;
 		this.gender = gender;
 
-		childNames = new LinkedList<String>();
-		childIdNumbers = new LinkedList<String>();
+		this.children = new LinkedList<>();
 	}
 
 	/**
