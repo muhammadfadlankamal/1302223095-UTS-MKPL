@@ -82,8 +82,7 @@ public class Employee {
 	}
 
 	public void addChild(String childName, String childIdNumber) {
-		childNames.add(childName);
-		childIdNumbers.add(childIdNumber);
+		this.children.add(new Child(childName, childIdNumber));
 	}
 
 	public int getAnnualIncomeTax() {
@@ -92,13 +91,19 @@ public class Employee {
 		// bekerja dari tahun sebelumnya maka otomatis dianggap 12 bulan.
 		LocalDate date = LocalDate.now();
 
-		if (date.getYear() == yearJoined) {
-			monthWorkingInYear = date.getMonthValue() - monthJoined;
-		} else {
-			monthWorkingInYear = 12;
-		}
+		int workingMonths = calculateWorkingMonthsThisYear();
 
 		return TaxFunction.calculateTax(monthlySalary, otherMonthlyIncome, monthWorkingInYear, annualDeductible,
 				spouseIdNumber.equals(""), childIdNumbers.size());
 	}
+
+	private int calculateWorkingMonthsThisYear() {
+		LocalDate date = LocalDate.now();
+		if (date.getYear() == yearJoined) {
+			return date.getMonthValue() - monthJoined;
+		} else {
+			return 12;
+		}
+	}
+
 }
