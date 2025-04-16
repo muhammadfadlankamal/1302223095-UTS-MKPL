@@ -81,20 +81,16 @@ public class Employee {
 		this.spouseIdNumber = idNumber;
 	}
 
+	public boolean hasSpouse() {
+		return spouseIdNumber != null && !spouseIdNumber.isEmpty();
+	}
+
 	public void addChild(String childName, String childIdNumber) {
 		this.children.add(new Child(childName, childIdNumber));
 	}
 
 	public int getAnnualIncomeTax() {
-
-		// Menghitung berapa lama pegawai bekerja dalam setahun ini, jika pegawai sudah
-		// bekerja dari tahun sebelumnya maka otomatis dianggap 12 bulan.
-		LocalDate date = LocalDate.now();
-
-		int workingMonths = calculateWorkingMonthsThisYear();
-
-		return TaxFunction.calculateTax(monthlySalary, otherMonthlyIncome, monthWorkingInYear, annualDeductible,
-				spouseIdNumber.equals(""), childIdNumbers.size());
+		return TaxFunction.calculateTaxFor(this);
 	}
 
 	private int calculateWorkingMonthsThisYear() {
